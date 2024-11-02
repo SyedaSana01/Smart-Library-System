@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Calendar, Clock, Users, Wifi, Monitor, Coffee } from 'lucide-react';
+import { Calendar, Clock, Users, Wifi, Monitor, Coffee, Check } from 'lucide-react';
 import { format, addHours, setHours, setMinutes } from 'date-fns';
 
 interface Room {
@@ -19,6 +19,8 @@ interface TimeSlot {
 function StudyRoomBooking() {
   const [selectedDate, setSelectedDate] = useState(new Date());
   const [selectedRoom, setSelectedRoom] = useState<number | null>(null);
+  const [selectedTimeSlot, setSelectedTimeSlot] = useState<TimeSlot | null>(null);
+  const [showConfirmation, setShowConfirmation] = useState(false);
 
   const rooms: Room[] = [
     {
@@ -47,11 +49,35 @@ function StudyRoomBooking() {
     };
   });
 
+  const handleBookRoom = () => {
+    if (!selectedRoom || !selectedTimeSlot) return;
+
+    const room = rooms.find(r => r.id === selectedRoom);
+    if (!room) return;
+
+    // Show confirmation message
+    setShowConfirmation(true);
+
+    // Reset after 3 seconds
+    setTimeout(() => {
+      setShowConfirmation(false);
+      setSelectedRoom(null);
+      setSelectedTimeSlot(null);
+    }, 3000);
+  };
+
   return (
     <div className="bg-white rounded-lg shadow-lg">
       <div className="p-6">
         <h2 className="text-xl font-semibold text-gray-900 mb-6">Study Room Booking</h2>
         
+        {showConfirmation && (
+          <div className="mb-6 p-4 bg-green-50 border border-green-200 rounded-md flex items-center gap-2 text-green-700">
+            <Check className="w-5 h-5" />
+            <span>Room booked successfully! A confirmation has been sent to your email.</span>
+          </div>
+        )}
+
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {rooms.map((room) => (
             <div
@@ -94,9 +120,12 @@ function StudyRoomBooking() {
               <button
                 key={index}
                 disabled={!slot.available}
+                onClick={() => setSelectedTimeSlot(slot)}
                 className={`px-3 py-2 text-sm rounded-md text-center ${
                   slot.available
-                    ? 'bg-indigo-50 text-indigo-700 hover:bg-indigo-100'
+                    ? selectedTimeSlot === slot
+                      ? 'bg-indigo-600 text-white'
+                      : 'bg-indigo-50 text-indigo-700 hover:bg-indigo-100'
                     : 'bg-gray-50 text-gray-400 cursor-not-allowed'
                 }`}
               >
@@ -108,9 +137,10 @@ function StudyRoomBooking() {
 
         <div className="mt-6 flex justify-end">
           <button
-            disabled={!selectedRoom}
+            onClick={handleBookRoom}
+            disabled={!selectedRoom || !selectedTimeSlot}
             className={`px-4 py-2 rounded-md ${
-              selectedRoom
+              selectedRoom && selectedTimeSlot
                 ? 'bg-indigo-600 text-white hover:bg-indigo-700'
                 : 'bg-gray-100 text-gray-400 cursor-not-allowed'
             }`}
