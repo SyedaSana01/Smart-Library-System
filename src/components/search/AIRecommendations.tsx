@@ -1,9 +1,10 @@
-import React from 'react';
-import { Sparkles, BookOpen, ThumbsUp, History } from 'lucide-react';
+import React, { useState } from 'react';
+import { Sparkles, BookOpen, ThumbsUp, History, RefreshCw } from 'lucide-react';
 import type { Book } from '../../types';
 
 function AIRecommendations() {
-  const recommendations: Book[] = [
+  const [isRefreshing, setIsRefreshing] = useState(false);
+  const [recommendations, setRecommendations] = useState<Book[]>([
     {
       id: 1,
       title: 'Clean Architecture',
@@ -24,13 +25,45 @@ function AIRecommendations() {
       category: 'Technology',
       description: 'Popular among software engineers',
     },
-  ];
+  ]);
+
+  const handleRefresh = async () => {
+    setIsRefreshing(true);
+    // Simulate API call
+    setTimeout(() => {
+      const newRecommendations = [
+        ...recommendations,
+        {
+          id: 3,
+          title: 'The Pragmatic Programmer',
+          author: 'David Thomas, Andrew Hunt',
+          cover: 'https://images.unsplash.com/photo-1532012197267-da84d127e765?auto=format&fit=crop&q=80&w=1000',
+          status: 'Available',
+          isbn: '978-0201616224',
+          category: 'Technology',
+          description: 'Based on your reading history',
+        },
+      ];
+      setRecommendations(newRecommendations);
+      setIsRefreshing(false);
+    }, 1500);
+  };
 
   return (
     <div className="bg-white rounded-lg shadow-lg p-6">
-      <div className="flex items-center gap-2 mb-6">
-        <Sparkles className="w-6 h-6 text-indigo-600" />
-        <h2 className="text-xl font-semibold text-gray-900">AI Recommendations</h2>
+      <div className="flex items-center justify-between mb-6">
+        <div className="flex items-center gap-2">
+          <Sparkles className="w-6 h-6 text-indigo-600" />
+          <h2 className="text-xl font-semibold text-gray-900">AI Recommendations</h2>
+        </div>
+        <button
+          onClick={handleRefresh}
+          disabled={isRefreshing}
+          className="flex items-center gap-2 px-3 py-1 text-sm text-indigo-600 hover:text-indigo-800 disabled:opacity-50"
+        >
+          <RefreshCw className={`w-4 h-4 ${isRefreshing ? 'animate-spin' : ''}`} />
+          Refresh
+        </button>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -66,9 +99,9 @@ function AIRecommendations() {
             <History className="w-4 h-4" />
             Recommendations updated hourly
           </div>
-          <button className="text-sm text-indigo-600 hover:text-indigo-800">
-            Refresh Recommendations
-          </button>
+          <span className="text-sm text-gray-500">
+            Based on your reading preferences and borrowing history
+          </span>
         </div>
       </div>
     </div>
