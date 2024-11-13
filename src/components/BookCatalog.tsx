@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Search, Filter, Plus, Edit, Trash2, X } from 'lucide-react';
+import { Search, Filter, Plus, Edit, Trash2 } from 'lucide-react';
 import AddBookModal from './books/AddBookModal';
 import BookForm from './books/BookForm';
 
@@ -14,30 +14,181 @@ function BookCatalog() {
       author: 'Don Norman',
       isbn: '978-0465050659',
       status: 'Available',
-      cover: 'https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?auto=format&fit=crop&q=80&w=1000',
+      cover: 'https://musafirbookstop.com/wp-content/uploads/2023/03/Copy-of-hindi-2023-03-19T002325.551.png',
       category: 'Design',
       description: 'A powerful primer on how design serves as the interface between objects and users.',
     },
     {
       id: 2,
-      title: 'Clean Code',
-      author: 'Robert C. Martin',
-      isbn: '978-0132350884',
+      title: 'Sapiens: A Brief History of Humankind',
+      author: 'Yuval Noah Harari',
+      isbn: '978-0062316097',
       status: 'Borrowed',
-      cover: 'https://images.unsplash.com/photo-1532012197267-da84d127e765?auto=format&fit=crop&q=80&w=1000',
+      cover: 'https://m.media-amazon.com/images/I/61i4k7DWNFL._AC_UF1000,1000_QL80_.jpg',
+      category: 'History',
+      description: 'A journey through the history of humankind.',
+    },
+     {
+      id: 3,
+      title: 'The Pragmatic Programmer',
+      author: 'Andrew Hunt and David Thomas',
+      isbn: '978-0201616224',
+      status: 'Available',
+      cover: 'https://m.media-amazon.com/images/I/71VStSjZmpL._AC_UF1000,1000_QL80_.jpg',
       category: 'Technology',
-      description: 'A handbook of agile software craftsmanship.',
+      description: 'A practical guide to programming and software development.',
     },
     {
-      id: 3,
+      id: 4,
       title: 'Atomic Habits',
       author: 'James Clear',
       isbn: '978-0735211292',
       status: 'Reserved',
-      cover: 'https://images.unsplash.com/photo-1589998059171-988d887df646?auto=format&fit=crop&q=80&w=1000',
+      cover: 'https://m.media-amazon.com/images/I/81F90H7hnML.jpg',
       category: 'Self-Development',
       description: 'Tiny changes, remarkable results.',
     },
+    {
+      id: 5,
+      title: 'Clean Code',
+      author: 'Robert C. Martin',
+      isbn: '978-0132350884',
+      status: 'Borrowed',
+      cover: 'https://m.media-amazon.com/images/I/71T7aD3EOTL._UF1000,1000_QL80_.jpg',
+      category: 'Technology',
+      description: 'A handbook of agile software craftsmanship.',
+    },
+    
+    {
+      id: 6,
+      title: 'The Subtle Art of Not Giving a F*ck',
+      author: 'Mark Manson',
+      isbn: '978-0062457714',
+      status: 'Available',
+      cover: 'https://m.media-amazon.com/images/I/71QKQ9mwV7L.jpg',
+      category: 'Self-Development',
+      description: 'A counterintuitive approach to living a better life.',
+    },
+    {
+      id: 7,
+      title: 'Start with Why',
+      author: 'Simon Sinek',
+      isbn: '978-1591846444',
+      status: 'Reserved',
+      cover: 'https://m.media-amazon.com/images/I/71M1P287BjL._AC_UF1000,1000_QL80_.jpg',
+      category: 'Business',
+      description: 'How great leaders inspire everyone to take action.',
+    },
+    {
+      id: 8,
+      title: 'The Art of War',
+      author: 'Sun Tzu',
+      isbn: '978-1590302255',
+      status: 'Available',
+      cover: 'https://m.media-amazon.com/images/I/71jWgemHbML._AC_UF1000,1000_QL80_.jpg',
+      category: 'Strategy',
+      description: 'An ancient Chinese military treatise.',
+    },
+    {
+      id: 9,
+      title: 'The Lean Startup',
+      author: 'Eric Ries',
+      isbn: '978-0307887894',
+      status: 'Available',
+      cover: 'https://images-eu.ssl-images-amazon.com/images/I/81vvgZqCskL._AC_UL210_SR210,210_.jpg',
+      category: 'Business',
+      description: 'How today’s entrepreneurs use continuous innovation to create radically successful businesses.',
+    },
+    {
+      id: 10,
+      title: 'The Four-Hour Workweek',
+      author: 'Tim Ferriss',
+      isbn: '978-0307465351',
+      status: 'Borrowed',
+      cover: 'https://m.media-amazon.com/images/I/61xpaBcQkcL.jpg',
+      category: 'Productivity',
+      description: 'Escape 9-5, live anywhere, and join the new rich.',
+    },
+    {
+      id: 11,
+      title: 'Outliers: The Story of Success',
+      author: 'Malcolm Gladwell',
+      isbn: '978-0316017930',
+      status: 'Reserved',
+      cover: 'https://m.media-amazon.com/images/I/61XsLQzCkRL.jpg',
+      category: 'Psychology',
+      description: 'What makes high-achievers different.',
+    },
+    {
+      id: 12,
+      title: 'The Power of Habit',
+      author: 'Charles Duhigg',
+      isbn: '978-0812981605',
+      status: 'Available',
+      cover: 'https://m.media-amazon.com/images/I/71iEVsSP1GL._AC_UF1000,1000_QL80_.jpg',
+      category: 'Self-Development',
+      description: 'Why we do what we do in life and business.',
+    },
+    {
+      id: 13,
+      title: 'The Mythical Man-Month',
+      author: 'Frederick P. Brooks Jr.',
+      isbn: '978-0201835953',
+      status: 'Borrowed',
+      cover: 'https://m.media-amazon.com/images/I/817iWsLJR0L.jpg',
+      category: 'Technology',
+      description: 'Essays on software engineering and project management.',
+    },
+    {
+      id: 14,
+      title: 'The Millionaire Next Door',
+      author: 'Thomas J. Stanley and William D. Danko',
+      isbn: '978-1589795471',
+      status: 'Reserved',
+      cover: 'https://m.media-amazon.com/images/I/81qR5W9XCaL.jpg',
+      category: 'Finance',
+      description: 'The surprising secrets of America’s wealthy.',
+    },
+    {
+      id: 15,
+      title: 'Educated',
+      author: 'Tara Westover',
+      isbn: '978-0399590504',
+      status: 'Available',
+      cover: 'https://m.media-amazon.com/images/I/91BHu7xj8eL._AC_UF1000,1000_QL80_.jpg',
+      category: 'Biography',
+      description: 'A memoir about a woman who grows up in a strict and abusive household in rural Idaho.',
+    },
+    {
+      id: 16,
+      title: 'The Intelligent Investor',
+      author: 'Benjamin Graham',
+      isbn: '978-0060555665',
+      status: 'Available',
+      cover: 'https://m.media-amazon.com/images/I/71vllLbpsdL._UF1000,1000_QL80_.jpg',
+      category: 'Finance',
+      description: 'The definitive book on value investing.',
+    },
+    {
+      id: 17,
+      title: 'The Alchemist',
+      author: 'Paulo Coelho',
+      isbn: '978-0062315007',
+      status: 'Borrowed',
+      cover: 'https://m.media-amazon.com/images/I/61HAE8zahLL._AC_UF1000,1000_QL80_.jpg',
+      category: 'Fiction',
+      description: 'A novel about pursuing one’s dreams by following the path of the heart.',
+    },
+    {
+      id: 18,
+      title: 'Thinking, Fast and Slow',
+      author: 'Daniel Kahneman',
+      isbn: '978-0374275631',
+      status: 'Reserved',
+      cover: 'https://m.media-amazon.com/images/I/71f6DceqZAL.jpg',
+      category: 'Psychology',
+      description: 'A book on the two systems of thinking that drive human decision-making.',
+    }
   ]);
 
   const handleAddBook = (bookData: any) => {
@@ -62,6 +213,12 @@ function BookCatalog() {
       setBooks(books.filter(book => book.id !== bookId));
     }
   };
+
+  const filteredBooks = books.filter(book => 
+    book.title.toLowerCase().includes(searchQuery.toLowerCase()) || 
+    book.author.toLowerCase().includes(searchQuery.toLowerCase()) ||
+    book.category.toLowerCase().includes(searchQuery.toLowerCase())
+  );
 
   return (
     <div className="space-y-6">
@@ -94,7 +251,7 @@ function BookCatalog() {
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {books.map((book) => (
+        {filteredBooks.map((book) => (
           <div key={book.id} className="bg-white rounded-lg shadow overflow-hidden group">
             <div className="relative">
               <img src={book.cover} alt={book.title} className="w-full h-48 object-cover" />
@@ -130,7 +287,6 @@ function BookCatalog() {
                 >
                   {book.status}
                 </span>
-                <span className="text-sm text-indigo-600">{book.category}</span>
               </div>
             </div>
           </div>
@@ -140,32 +296,16 @@ function BookCatalog() {
       {showAddModal && (
         <AddBookModal
           onClose={() => setShowAddModal(false)}
-          onAdd={handleAddBook}
+          onAddBook={handleAddBook}
         />
       )}
 
       {editingBook && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
-          <div className="bg-white rounded-lg max-w-2xl w-full">
-            <div className="flex justify-between items-center p-6 border-b border-gray-200">
-              <h2 className="text-xl font-semibold text-gray-900">Edit Book</h2>
-              <button
-                onClick={() => setEditingBook(null)}
-                className="text-gray-400 hover:text-gray-500"
-              >
-                <X className="w-5 h-5" />
-              </button>
-            </div>
-            <div className="p-6">
-              <BookForm
-                initialData={editingBook}
-                onSubmit={handleEditBook}
-                onCancel={() => setEditingBook(null)}
-                isEdit
-              />
-            </div>
-          </div>
-        </div>
+        <BookForm
+          book={editingBook}
+          onSave={handleEditBook}
+          onCancel={() => setEditingBook(null)}
+        />
       )}
     </div>
   );

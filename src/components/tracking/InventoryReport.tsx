@@ -1,5 +1,6 @@
 import React from 'react';
 import { X, Download, Printer, ChevronDown } from 'lucide-react';
+import { jsPDF } from 'jspdf';
 
 interface InventoryReportProps {
   books: any[];
@@ -23,6 +24,41 @@ function InventoryReport({ books, onClose, lastScanTime }: InventoryReportProps)
     return acc;
   }, {});
 
+  const generatePDF = () => {
+    const doc = new jsPDF();
+
+    doc.setFontSize(18);
+    doc.text('Inventory Report', 14, 20);
+
+    // Summary
+    doc.setFontSize(12);
+    doc.text(`In Place: ${statusCounts.in_place}`, 14, 30);
+    doc.text(`Misplaced: ${statusCounts.misplaced}`, 14, 40);
+    doc.text(`In Transit: ${statusCounts.in_transit}`, 14, 50);
+
+    // Location Groups
+    let yOffset = 60;
+    Object.entries(locationGroups).forEach(([location, locationBooks]: [string, any]) => {
+      doc.setFontSize(14);
+      doc.text(`${location}: ${locationBooks.length} books`, 14, yOffset);
+      yOffset += 10;
+
+      locationBooks.forEach((book: any) => {
+        doc.setFontSize(12);
+        doc.text(`${book.title} - ${book.rfidTag} - ${book.status} - ${book.lastSeen}`, 14, yOffset);
+        yOffset += 8;
+      });
+      
+      yOffset += 10; // Add some space between groups
+    });
+
+    // Last scan time
+    doc.text(`Report generated based on last scan: ${lastScanTime}`, 14, yOffset + 10);
+
+    // Save the PDF
+    doc.save('inventory_report.pdf');
+  };
+
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
       <div className="bg-white rounded-lg max-w-4xl w-full max-h-[90vh] overflow-y-auto">
@@ -33,9 +69,9 @@ function InventoryReport({ books, onClose, lastScanTime }: InventoryReportProps)
               <Printer className="w-4 h-4" />
               Print
             </button>
-            <button className="flex items-center gap-2 px-3 py-1.5 text-gray-600 hover:text-gray-900">
+            <button onClick={generatePDF} className="flex items-center gap-2 px-3 py-1.5 text-gray-600 hover:text-gray-900">
               <Download className="w-4 h-4" />
-              Export
+              View Report
             </button>
             <button onClick={onClose} className="text-gray-400 hover:text-gray-500">
               <X className="w-5 h-5" />
@@ -124,3 +160,4 @@ function InventoryReport({ books, onClose, lastScanTime }: InventoryReportProps)
 }
 
 export default InventoryReport;
+

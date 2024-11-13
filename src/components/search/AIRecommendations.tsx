@@ -31,20 +31,22 @@ function AIRecommendations() {
     setIsRefreshing(true);
     // Simulate API call
     setTimeout(() => {
-      const newRecommendations = [
-        ...recommendations,
-        {
-          id: 3,
-          title: 'The Pragmatic Programmer',
-          author: 'David Thomas, Andrew Hunt',
-          cover: 'https://images.unsplash.com/photo-1532012197267-da84d127e765?auto=format&fit=crop&q=80&w=1000',
-          status: 'Available',
-          isbn: '978-0201616224',
-          category: 'Technology',
-          description: 'Based on your reading history',
-        },
-      ];
-      setRecommendations(newRecommendations);
+      const newRecommendation: Book = {
+        id: 3,
+        title: 'The Pragmatic Programmer',
+        author: 'David Thomas, Andrew Hunt',
+        cover: 'https://images.unsplash.com/photo-1532012197267-da84d127e765?auto=format&fit=crop&q=80&w=1000',
+        status: 'Available',
+        isbn: '978-0201616224',
+        category: 'Technology',
+        description: 'Based on your reading history',
+      };
+
+      // Add the new recommendation while ensuring the type is Book[]
+      setRecommendations((prevRecommendations) => [
+        ...prevRecommendations,
+        newRecommendation,
+      ]);
       setIsRefreshing(false);
     }, 1500);
   };
